@@ -15,29 +15,25 @@ pub fn parse_args() -> (u64, usize) {
   for idx in 0..args.len() {
     let arg = &args[idx];
 
-    if arg == BYTES_ARG_SHORT {
-      bytes = args[idx + 1].parse().expect("Invalid argument");
+    if arg == BYTES_ARG_SHORT || arg.starts_with(BYTES_ARG) {
+      let intermediate = match arg == BYTES_ARG_SHORT {
+        true => args[idx + 1].to_owned(),
+        false => arg.strip_prefix(PRECISION_ARG).unwrap().to_string(),
+      };
 
-    } else if arg.starts_with(BYTES_ARG) {
-      bytes = arg
-        .strip_prefix(BYTES_ARG)
-        .unwrap()
-        .parse()
-        .expect("Invalid argument");
+      bytes = intermediate.parse().expect("Invalid argument");
 
-    } else if arg == PRECISION_ARG_SHORT {
-      precision = args[idx + 1]
-        .parse()
-        .unwrap_or(DEFAULT_PR)
-        .clamp(MIN_MAX_PR.0, MIN_MAX_PR.1);
+    } else if arg == PRECISION_ARG_SHORT || arg.starts_with(PRECISION_ARG) {
+      let intermediate = match arg == PRECISION_ARG_SHORT {
+        true => args[idx + 1].to_owned(),
+        false => arg.strip_prefix(PRECISION_ARG).unwrap().to_string(),
+      };
 
-    } else if arg.starts_with(PRECISION_ARG) {
-      precision = arg
-        .strip_prefix(PRECISION_ARG)
-        .unwrap()
+      precision = intermediate
         .parse()
         .unwrap_or(DEFAULT_PR)
         .clamp(MIN_MAX_PR.0, MIN_MAX_PR.1);
+
     }
   }
 
