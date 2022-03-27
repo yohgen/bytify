@@ -26,7 +26,10 @@ pub fn parse_args() -> (u64, usize) {
         .expect("Invalid argument");
 
     } else if arg == PRECISION_ARG_SHORT {
-      precision = args[idx + 1].parse().unwrap_or(DEFAULT_PR);
+      precision = args[idx + 1]
+        .parse()
+        .unwrap_or(DEFAULT_PR)
+        .clamp(MIN_MAX_PR.0, MIN_MAX_PR.1);
 
     } else if arg.starts_with(PRECISION_ARG) {
       precision = arg
