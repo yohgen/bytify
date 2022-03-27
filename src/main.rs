@@ -1,13 +1,13 @@
 #![feature(int_log)]
 
-mod cl_args;
+mod cl;
 
 const KIBI: u128 = 1024;
-const SIZES: &[&str] = &["Bytes", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "Yib"];
+const SIZES: &[&str] = &["Bytes", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB"];
 
 
 fn main() {
-    let (bytes, precision) = cl_args::parse_args();
+    let (bytes, precision) = cl::parse_args();
 
     let power: u32 = match bytes == 0 {
         true => 0,

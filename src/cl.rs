@@ -1,7 +1,8 @@
 use std::env;
 
 const DEF_PR: usize = 2;
-const MIN_MAX_PR: (usize, usize) = (0, 8);
+const MAX_PR: usize = 8;
+const MAX_BYTES: u64 = 18446744073709499999;
 const ARG_B: &str = "--bytes=";
 const ARG_P: &str = "--precision=";
 const ARG_B_SH: &str = "-b";
@@ -18,10 +19,13 @@ pub fn parse_args() -> (u64, usize) {
     if arg == ARG_B_SH || arg.starts_with(ARG_B) {
       let intermediate = match arg == ARG_B_SH {
         true => args[idx + 1].to_owned(),
-        false => arg.strip_prefix(ARG_P).unwrap().to_string(),
+        false => arg.strip_prefix(ARG_B).unwrap().to_string(),
       };
 
-      bytes = intermediate.parse().expect("Invalid argument");
+      bytes = intermediate
+        .parse::<u64>()
+        .expect("Invalid argument")
+        .clamp(0, MAX_BYTES);
 
     } else if arg == ARG_P_SH || arg.starts_with(ARG_P) {
       let intermediate = match arg == ARG_P_SH {
@@ -30,9 +34,9 @@ pub fn parse_args() -> (u64, usize) {
       };
 
       precision = intermediate
-        .parse()
+        .parse::<usize>()
         .unwrap_or(DEF_PR)
-        .clamp(MIN_MAX_PR.0, MIN_MAX_PR.1);
+        .clamp(0, MAX_PR);
 
     }
   }
