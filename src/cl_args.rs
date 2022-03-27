@@ -1,11 +1,11 @@
 use std::env;
 
-const DEFAULT_PR: usize = 2;
+const DEF_PR: usize = 2;
 const MIN_MAX_PR: (usize, usize) = (0, 8);
-const BYTES_ARG: &str = "--bytes=";
-const PRECISION_ARG: &str = "--precision=";
-const BYTES_ARG_SHORT: &str = "-b";
-const PRECISION_ARG_SHORT: &str = "-p";
+const ARG_B: &str = "--bytes=";
+const ARG_P: &str = "--precision=";
+const ARG_B_SH: &str = "-b";
+const ARG_P_SH: &str = "-p";
 
 pub fn parse_args() -> (u64, usize) {
   let args: Vec<String> = env::args().collect();
@@ -15,23 +15,23 @@ pub fn parse_args() -> (u64, usize) {
   for idx in 0..args.len() {
     let arg = &args[idx];
 
-    if arg == BYTES_ARG_SHORT || arg.starts_with(BYTES_ARG) {
-      let intermediate = match arg == BYTES_ARG_SHORT {
+    if arg == ARG_B_SH || arg.starts_with(ARG_B) {
+      let intermediate = match arg == ARG_B_SH {
         true => args[idx + 1].to_owned(),
-        false => arg.strip_prefix(PRECISION_ARG).unwrap().to_string(),
+        false => arg.strip_prefix(ARG_P).unwrap().to_string(),
       };
 
       bytes = intermediate.parse().expect("Invalid argument");
 
-    } else if arg == PRECISION_ARG_SHORT || arg.starts_with(PRECISION_ARG) {
-      let intermediate = match arg == PRECISION_ARG_SHORT {
+    } else if arg == ARG_P_SH || arg.starts_with(ARG_P) {
+      let intermediate = match arg == ARG_P_SH {
         true => args[idx + 1].to_owned(),
-        false => arg.strip_prefix(PRECISION_ARG).unwrap().to_string(),
+        false => arg.strip_prefix(ARG_P).unwrap().to_string(),
       };
 
       precision = intermediate
         .parse()
-        .unwrap_or(DEFAULT_PR)
+        .unwrap_or(DEF_PR)
         .clamp(MIN_MAX_PR.0, MIN_MAX_PR.1);
 
     }
