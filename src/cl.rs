@@ -36,7 +36,7 @@ pub fn parse_args() -> (u128, usize, String) {
           IntErrorKind::InvalidDigit => panic!("Bytes must be a number"),
           IntErrorKind::PosOverflow => {
             huge_indicator = "+".to_owned();
-            
+
             MAX_BYTES
           }
           _ => panic!("Invalid bytes"),
@@ -45,7 +45,7 @@ pub fn parse_args() -> (u128, usize, String) {
     } else if arg == ARG_P_SH || arg.starts_with(ARG_P) {
       let intermediate = match arg == ARG_P_SH {
         true => args[idx + 1].to_owned(),
-        false => arg.strip_prefix(ARG_P).unwrap().to_string(),
+        false => arg.strip_prefix(ARG_P).unwrap().to_owned(),
       };
 
       precision = intermediate
