@@ -25,11 +25,18 @@ pub fn parse_args() -> (u128, usize, String) {
       };
 
       bytes = match intermediate.parse::<u128>() {
-        Ok(value) => value,
+        Ok(value) => if value > MAX_BYTES {
+          huge_indicator = "+".to_owned();
+
+          MAX_BYTES
+        } else {
+          value
+        },
         Err(err) => match err.kind() {
           IntErrorKind::InvalidDigit => panic!("Bytes must be a number"),
           IntErrorKind::PosOverflow => {
             huge_indicator = "+".to_owned();
+            
             MAX_BYTES
           }
           _ => panic!("Invalid bytes"),
