@@ -4,14 +4,14 @@ This program uses IEC-compliant units, see the table below:
 
 | **UNIT NAME** | **VALUE (in bytes)** | **SHORTHAND** |
 |:-------------:|:--------------------:|:-------------:|
-| `kibibyte`    | `1024^1`             | `KiB`         |
-| `mebibyte`    | `1024^2`             | `MiB`         |
-| `gibibyte`    | `1024^3`             | `GiB`         |
-| `tebibyte`    | `1024^4`             | `TiB`         |
-| `pebibyte`    | `1024^5`             | `PiB`         |
-| `exbibyte`    | `1024^6`             | `EiB`         |
-| `zebibyte`    | `1024^7`             | `ZiB`         |
-| `yobibyte`    | `1024^8`             | `YiB`         |
+| kibibyte      | 1024^1               | KiB           |
+| mebibyte      | 1024^2               | MiB           |
+| gibibyte      | 1024^3               | GiB           |
+| tebibyte      | 1024^4               | TiB           |
+| pebibyte      | 1024^5               | PiB           |
+| exbibyte      | 1024^6               | EiB           |
+| zebibyte      | 1024^7               | ZiB           |
+| yobibyte      | 1024^8               | YiB           |
 
 ## [🛠️] Build
 
@@ -38,5 +38,5 @@ cargo build --release                        # compile with cargo
 
 # handles values greater than the currently standardized yobibyte
 ./target/release/bytify -b 100000000000000000000000000000
-> +1.00 YiB
+> +1024.00 YiB
 ```
