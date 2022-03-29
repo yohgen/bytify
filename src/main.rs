@@ -11,7 +11,7 @@ fn main() {
 
     let power: u32 = match bytes == 0 {
         true => 0,
-        false => bytes.log10() / KIBI.log10(),
+        false => bytes.log(KIBI),
     };
     let res: f64 = bytes as f64 / KIBI.pow(power) as f64;
     let size = SIZES[power as usize];

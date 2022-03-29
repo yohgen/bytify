@@ -3,7 +3,7 @@ use std::num::IntErrorKind;
 
 const DEF_P: usize = 2;
 const MAX_P: usize = 8;
-const MAX_BYTES: u128 = 1024u128.pow(8);
+const MAX_BYTES: u128 = 1024u128.pow(9) - 1;
 const ARG_B: &str = "--bytes=";
 const ARG_P: &str = "--precision=";
 const ARG_B_SH: &str = "-b";
